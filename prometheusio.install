@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function prometheusio_install() {
+  /** @var \Drupal\prometheusio\PrometheusService $prometheus */
+  $prometheus = \Drupal::service('prometheusio.default');
+  $entity_bundles = \Drupal::entityManager()->getAllBundleInfo();
+
+  foreach ($entity_bundles as $entity_type_name => $entity_type_bundles) {
+    foreach ($entity_type_bundles as $entity_bundle_name => $entity_type_bundle) {
+      $gauge = $prometheus->getOrRegisterGauge(
+        'drupal',
+        'entity',
+        $this->t('Entity type bundle gauge'),
+        ['type', 'bundle']
+      );
+      $value = mt_rand(5, 50);
+      $gauge->set($value, [$entity_type_name, $entity_bundle_name]);
+    }
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function prometheusio_uninstall() {
+  /** @var \Drupal\prometheusio\PrometheusService $prometheus */
+  $prometheus = \Drupal::service('prometheusio.default');
+  $prometheus->flush();
+}

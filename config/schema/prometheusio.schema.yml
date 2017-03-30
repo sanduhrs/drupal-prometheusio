@@ -1,0 +1,18 @@
+prometheusio.settings:
+  type: config_object
+  mapping:
+    redis_host:
+      type: string
+      label: 'Host'
+    redis_port:
+      type: integer
+      label: 'Port'
+    redis_timeout:
+      type: float
+      label: 'Timeout'
+    redis_read_timeout:
+      type: integer
+      label: 'Read timeout'
+    redis_persistent_connections:
+      type: boolean
+      label: 'Persistent connections'

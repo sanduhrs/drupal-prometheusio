@@ -1,0 +1,16 @@
+{
+  "name": "drupal/prometheusio",
+  "type": "drupal-module",
+  "description": "My Awesome Module",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/prometheusio",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/prometheusio",
+    "source": "http://cgit.drupalcode.org/prometheusio"
+  },
+  "require": {
+    "jimdo/prometheus_client_php": "^0.8.0"
+  }
+}

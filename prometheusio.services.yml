@@ -1,0 +1,9 @@
+services:
+  prometheusio.default:
+    class: Drupal\prometheusio\PrometheusService
+    arguments: ["@config.factory"]
+  prometheusio.bootstrap:
+    class: Drupal\prometheusio\EventSubscriber\BootstrapSubscriber
+    arguments: ["@config.factory"]
+    tags:
+      - { name: event_subscriber }

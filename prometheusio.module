@@ -1,0 +1,39 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_insert.
+ */
+function prometheusio_entity_insert(EntityInterface $entity) {
+  /** @var \Drupal\prometheusio\PrometheusService $prometheus */
+  $prometheus = \Drupal::service('prometheusio.default');
+  $gauge = $prometheus->getOrRegisterGauge(
+    'drupal',
+    'entity',
+    t('Entity type bundle gauge'),
+    ['type', 'bundle']
+  );
+  $gauge->inc([
+    $entity->getEntityTypeId(),
+    $entity->bundle(),
+  ]);
+}
+
+/**
+ * Implements hook_entity_delete.
+ */
+function prometheusio_entity_delete(EntityInterface $entity) {
+  /** @var \Drupal\prometheusio\PrometheusService $prometheus */
+  $prometheus = \Drupal::service('prometheusio.default');
+  $gauge = $prometheus->getOrRegisterGauge(
+    'drupal',
+    'entity',
+    t('Entity type bundle gauge'),
+    ['type', 'bundle']
+  );
+  $gauge->dec([
+    $entity->getEntityTypeId(),
+    $entity->bundle(),
+  ]);
+}

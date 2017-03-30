@@ -1,0 +1,7 @@
+prometheusio.metrics:
+  path: 'metrics'
+  defaults:
+    _controller: '\Drupal\prometheusio\Controller\MetricsController::metrics'
+    _title: 'Metrics'
+  requirements:
+    _custom_access: '\Drupal\prometheusio\Controller\MetricsController::access'
